@@ -2,15 +2,11 @@
 
 namespace App\Domain\DomainValidator;
 
-use App\Domain\Contracts\DomainValidatorInterface;
-use App\Domain\Contracts\SpecificationInterface;
-use App\Domain\Specification\IntSpecification;
-use App\Domain\Specification\StringSpecification;
+use App\Domain\Constraint\IntConstraint;
+use App\Domain\Constraint\StringConstraint;
 
-class CreateCompanyValidator implements DomainValidatorInterface
+class CreateCompanyValidator extends DomainValidator
 {
-    protected array $specifications = [];
-
     protected string $paramString;
     protected int $paramInt;
 
@@ -21,18 +17,10 @@ class CreateCompanyValidator implements DomainValidatorInterface
 
     public function build(): self
     {
-        $this->specifications[] = new StringSpecification($this->paramString);
-        $this->specifications[] = new IntSpecification($this->paramInt);
+        $this->constraints[] = new StringConstraint($this->paramString);
+        $this->constraints[] = new IntConstraint($this->paramInt);
 
         return $this;
-    }
-
-    public function validate(): void
-    {
-        /** @var SpecificationInterface $specification */
-        foreach ($this->specifications as $specification) {
-            $specification->isSatisfiedBy();
-        }
     }
 
     public function setParamString(string $paramString): self

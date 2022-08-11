@@ -11,7 +11,7 @@ class DomainService
     {
         CreateCompanyValidator::builder()
             ->setParamString('test 111')
-            ->setParamInt(10000)
+            ->setParamInt(200)
             ->build()
             ->validate();
 

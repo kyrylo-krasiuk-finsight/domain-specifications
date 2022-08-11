@@ -2,7 +2,8 @@
 
 namespace App\Domain\DomainValidator;
 
-use App\Domain\Specification\IdSpecification;
+use App\Domain\Constraint\DoubleConstraint;
+use App\Domain\Constraint\IdConstraint;
 
 class UpdateCompanyValidator extends CreateCompanyValidator
 {
@@ -15,7 +16,8 @@ class UpdateCompanyValidator extends CreateCompanyValidator
 
     public function build(): self
     {
-        $this->specifications[] = new IdSpecification($this->id);
+        $this->constraints[] = new IdConstraint($this->id);
+        $this->constraints[] = new DoubleConstraint($this->paramInt, $this->paramString);
 
         return $this;
     }

@@ -3,24 +3,24 @@
 namespace App\Domain\Specification;
 
 use App\Domain\Contracts\SpecificationInterface;
-use App\Domain\Exceptions\IntSpecificationException;
 
 class IntSpecification implements SpecificationInterface
 {
     public function __construct(
-        private readonly int $paramInt
+        private int $paramInt
     ) {}
 
     public function isSatisfiedBy(): bool
     {
         if (!\is_int($this->paramInt)) {
-            throw new IntSpecificationException($this->paramInt);
+            return false;
         }
 
-        if ($this->paramInt < 10000) {
-            throw new IntSpecificationException($this->paramInt);
-        }
+        return $this->paramInt > 50;
+    }
 
-        return $this->paramInt > 10000;
+    public function getParamInt(): int
+    {
+        return $this->paramInt;
     }
 }

@@ -4,15 +4,19 @@ namespace App\Domain\Exceptions;
 
 use DomainException;
 
+use App\Domain\Contracts\SpecificationInterface;
+use App\Domain\Specification\StringSpecification;
+
 class StringSpecificationException extends DomainException
 {
     public function __construct(
-         string $paramString
+        SpecificationInterface $specification
     ) {
+        /** @var StringSpecification $specification  */
         parent::__construct(
             sprintf(
                 'Some error with %s string param',
-                $paramString
+                $specification->getParamString()
             )
         );
     }
